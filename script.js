@@ -12232,7 +12232,7 @@ function injectAboutButton() {
   const creators = [
     { name:'Kinjal Pramanik', shade:1,
       linkedin:'https://www.linkedin.com/in/kinjal-pramanik-5b95453b6',
-      github:'https://github.com/Voidtraveler-pixel' },
+      github:'https://github.com/KinjalPramanik06' },
     { name:'Ankurak Roy', shade:2,
       linkedin:'https://www.linkedin.com/in/ankurak-roy-17350b3b6',
       github:'https://github.com/ANKURAKROY' },
