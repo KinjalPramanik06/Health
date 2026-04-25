@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthGuard Pro — Advanced First Aid System</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="toast-wrap" id="toasts"></div>
+
+  <nav>
+    <div class="logo">
+      <div class="logo-pulse"><i class="fas fa-shield-heart" style="color:#000;font-size:.9rem"></i></div>
+      <span>HealthGuard Pro</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="scrollToEl('#treatments')">Treatments</button>
+      <button class="nav-link" onclick="scrollToEl('#flashcards')">Flashcards</button>
+      <button class="nav-link" onclick="scrollToEl('#categories')">Categories</button>
+    </div>
+    <div class="search-wrap" style="flex:1;max-width:420px;margin-left:1rem">
+      <div class="nav-search">
+        <i class="fas fa-search" style="color:var(--text3);font-size:.85rem"></i>
+        <input type="text" id="navSearch" placeholder="Search treatments…" oninput="liveSearch(this.value)" onkeypress="if(event.key==='Enter')doSearch()">
+      </div>
+      <div class="search-dropdown" id="searchDrop" style="display:none"></div>
+    </div>
+    <div class="nav-actions">
+      <button class="ib" id="themeBtn" title="Toggle theme"><i class="fas fa-moon"></i></button>
+      <button class="ib" onclick="openModal('bookmarksModal')" title="Bookmarks"><i class="fas fa-bookmark"></i></button>
+      <button class="sos-btn" onclick="openModal('sosModal')"><i class="fas fa-triangle-exclamation"></i> SOS</button>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="hero-badge"><i class="fas fa-circle-check"></i> Made by Phantom Legion Developers</div>
+    <h1>Advanced <span class="glow">First Aid</span><br>at Your Fingertips</h1>
+    <p class="hero-sub">AI-powered emergency guidance with treatment protocols, real-time chatbot assistance, and evidence-based medical procedures.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="scrollToEl('#treatments')"><i class="fas fa-bolt"></i> Browse Treatments</button>
+      <button class="btn-outline" onclick="toggleChat()"><i class="fas fa-robot"></i> Ask AI Assistant</button>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num" id="counter1">0</div><div class="stat-label">Treatments</div></div>
+      <div class="stat"><div class="stat-num" id="counter2">0</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num" id="counter3">0</div><div class="stat-label">Protocols</div></div>
+    </div>
+  </header>
+
+  <section class="section" id="categories">
+    <div class="sec-header">
+      <h2>Emergency <span style="color:var(--cyan)">Categories</span></h2>
+      <p>Organized by medical specialty for rapid access during emergencies</p>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </section>
+
+  <section class="section" id="treatments">
+    <div class="sec-header">
+      <h2>Treatment <span style="color:var(--cyan)">Protocols</span></h2>
+      <p>Evidence-based first aid for conditions</p>
+    </div>
+    <div class="filter-row" id="filterRow"></div>
+    <div class="treatment-grid" id="tGrid"></div>
+    <div style="text-align:center;margin-top:2rem">
+      <button class="btn-outline" id="loadMoreBtn" onclick="loadMoreTreatments()">Load More Treatments</button>
+    </div>
+  </section>
+
+  <section class="section" id="flashcards">
+    <div class="sec-header">
+      <h2>Survival <span style="color:var(--cyan)">Flashcards</span></h2>
+      <p>Tap to flip — test your emergency knowledge</p>
+    </div>
+    <div class="fc-row" id="fcRow"></div>
+  </section>
+
+  <div class="overlay" id="treatmentModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('treatmentModal')"><i class="fas fa-times"></i></button>
+      <div class="modal-header">
+        <div class="modal-icon" id="mIcon"></div>
+        <div>
+          <div class="modal-title" id="mTitle"></div>
+          <div class="modal-sub" id="mSub"></div>
+        </div>
+      </div>
+      <div id="mWarn"></div>
+      <div class="steps-section">
+        <h3><i class="fas fa-list-ol" style="margin-right:.4rem"></i>Step-by-Step Protocol</h3>
+        <div id="mSteps"></div>
+      </div>
+      <div id="mDoNot"></div>
+      <div id="mSeek"></div>
+      <div id="mTags" class="modal-tags"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="sosModal">
+    <div class="modal sos-modal">
+      <button class="modal-close" onclick="closeModal('sosModal')"><i class="fas fa-times"></i></button>
+      <div class="modal-header">
+        <div class="modal-icon" style="background:rgba(255,45,85,.12)"><i class="fas fa-triangle-exclamation" style="color:var(--red)"></i></div>
+        <div>
+          <div class="modal-title">Emergency SOS</div>
+          <div class="modal-sub">Tap to dial immediate help</div>
+        </div>
+      </div>
+      <div class="sos-grid">
+        <a href="tel:108" class="sos-num"><strong>108</strong><span>Ambulance</span></a>
+        <a href="tel:102" class="sos-num"><strong>102</strong><span>Health Helpline</span></a>
+        <a href="tel:100" class="sos-num"><strong>100</strong><span>Police</span></a>
+        <a href="tel:112" class="sos-num"><strong>112</strong><span>National Emergency</span></a>
+      </div>
+      <div class="sos-tip">
+        <strong>⚠️ Tip:</strong> Stay calm and provide your exact location first when the operator answers.
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="bookmarksModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('bookmarksModal')"><i class="fas fa-times"></i></button>
+      <div class="modal-title" style="margin-bottom:1.5rem">Saved Treatments</div>
+      <div id="bookmarksList" style="display:flex;flex-direction:column;gap:.8rem"></div>
+    </div>
+  </div>
+
+  <div class="chatbox hidden" id="chatbox">
+    <div class="chat-head">
+      <div class="chat-avatar"><i class="fas fa-robot"></i></div>
+      <div class="chat-head-info">
+        <h4>HealthGuard AI</h4>
+        <div class="chat-status">Online — Ready to assist</div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="quick-chips" id="quickChips">
+      <span class="chip" onclick="quickMsg('CPR steps')">CPR</span>
+      <span class="chip" onclick="quickMsg('burn treatment')">Burns</span>
+      <span class="chip" onclick="quickMsg('choking adult')">Choking</span>
+      <span class="chip" onclick="quickMsg('heart attack symptoms')">Heart Attack</span>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatIn" placeholder="Describe the emergency…" onkeypress="if(event.key==='Enter')sendMsg()">
+      <button class="send-btn" onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+  
+  <button class="chat-fab" id="chatFab" onclick="toggleChat()">
+    <i class="fas fa-comment-medical"></i>
+    <div class="chat-notif" id="chatNotif" style="display:none;"></div>
+  </button>
+
+  <footer>
+    <div class="disclaimer">⚠️ This application provides general first aid guidance for educational purposes only. It is NOT a substitute for professional medical advice, diagnosis, or treatment.</div>
+    <p>HealthGuard Pro &copy; 2026 &mdash; Built for emergency preparedness &amp; education</p>
+    <button class="btn-outline" onclick="showHospitals()" style="margin-top: 1.5rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Local Kolkata Hospitals</button>
+  </footer>
+
+</body>
+</html>
