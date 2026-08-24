@@ -1,6 +1,4 @@
-/* ==========================================
-   CSS VARIABLES & THEMES
-========================================== */
+/* CSS VARIABLES & THEMES */
 :root {
   --bg: #06090f;
   --bg2: #0d1117;
@@ -42,7 +40,7 @@
   --bg: #f0f4f8;
   --bg2: #ffffff;
   --bg3: #f8fafc;
-  --cyan: #00a854;        /* darker green — readable on white */
+  --cyan: #00a854;        
   --cyan2: #007a3d;
   --green: #00a854;
   --purple: #2e7d32;
@@ -74,9 +72,7 @@
   --chip-bg: rgba(0, 0, 0, 0.05);
 }
 
-/* ==========================================
-   BASE STYLES & RESET
-========================================== */
+/* BASE STYLES & RESET */
 * {
   margin: 0;
   padding: 0;
@@ -115,9 +111,7 @@ body {
   transition: opacity .4s, filter .4s;
 }
 
-/* ==========================================
-   NAVIGATION
-========================================== */
+/* NAVIGATION */
 nav {
   position: fixed;
   top: 0;
@@ -236,9 +230,7 @@ nav {
   animation: sosPulse 3s infinite;
 }
 
-/* ==========================================
-   HERO SECTION
-========================================== */
+/* HERO SECTION */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -399,9 +391,7 @@ nav {
   background: rgba(0, 230, 118, .02);
 }
 
-/* ==========================================
-   CATEGORIES & TREATMENTS
-========================================== */
+/* CATEGORIES & TREATMENTS */
 .section { padding: 5rem 4%; position: relative; z-index: 1; }
 
 .sec-header { text-align: center; margin-bottom: 3rem; }
@@ -554,9 +544,7 @@ nav {
 .sev-medium { background: rgba(0, 230, 118, .15); color: var(--green); }
 .sev-low { background: rgba(105, 240, 174, .15); color: var(--purple); }
 
-/* ==========================================
-   FLASHCARDS
-========================================== */
+/* FLASHCARDS */
 .fc-row {
   display: flex;
   gap: 1rem;
@@ -609,9 +597,7 @@ nav {
 .fc-hint { font-size: .72rem; color: var(--text3); display: flex; align-items: center; gap: .3rem; }
 .fc-a { font-size: .95rem; font-weight: 600; color: var(--cyan); line-height: 1.4; }
 
-/* ==========================================
-   MODALS
-========================================== */
+/* MODALS */
 .overlay {
   position: fixed;
   inset: 0;
@@ -749,9 +735,7 @@ nav {
   color: var(--text3);
 }
 
-/* ==========================================
-   SOS MODAL
-========================================== */
+/* SOS MODAL */
 .sos-modal { max-width: 500px; }
 .sos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin: 1.5rem 0; }
 .sos-num {
@@ -781,9 +765,7 @@ nav {
   margin-top: .5rem;
 }
 
-/* ==========================================
-   CHATBOT
-========================================== */
+/* CHATBOT */
 .chat-fab {
   position: fixed;
   bottom: 2rem;
@@ -1000,9 +982,7 @@ nav {
 
 .send-btn:hover { transform: scale(1.05); }
 
-/* ==========================================
-   TOAST NOTIFICATIONS
-========================================== */
+/* TOAST NOTIFICATIONS */
 .toast-wrap {
   position: fixed;
   top: 5rem;
@@ -1057,10 +1037,7 @@ footer .disclaimer {
   line-height: 1.5;
 }
 
-/* ==========================================
-   LIGHT MODE — SPECIFIC OVERRIDES
-   (for elements with hardcoded dark rgba)
-========================================== */
+/* LIGHT MODE — SPECIFIC OVERRIDES */
 
 /* Search dropdown */
 .light .search-dropdown {
@@ -1202,9 +1179,7 @@ footer .disclaimer {
 /* Ripple in light mode */
 .light button .ripple { background: rgba(0,0,0,.08); }
 
-/* ==========================================
-   ANIMATIONS & MEDIA QUERIES
-========================================== */
+/* ANIMATIONS & MEDIA QUERIES */
 @keyframes logoPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, .4); } 50% { box-shadow: 0 0 0 10px rgba(0, 230, 118, 0); } }
 @keyframes sosPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 45, 85, .5); } 50% { box-shadow: 0 0 16px rgba(255, 45, 85, .4); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
